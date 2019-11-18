@@ -1,0 +1,77 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Módulo de Vendedor'" [icon]="'fa-desktop'"></app-page-header>
+    <div *ngIf="productos.length == 0">
+        <div class="jumbotron">
+            <h1>No tienes productos ofertados...</h1>
+            <p>
+                No dejes pasar más tiempo, vende tu primer producto!
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit(productForm.value)">
+                <div class="form-row col-md-12">
+                    <div class="col">
+                        <fieldset class="form-group">
+                                <label>Nombre:</label>
+                                <input id="name" type="text" formControlName="name" class="form-control" placeholder="Nombre">
+                        </fieldset>        
+                    </div>
+                    <div class="col">
+                        <fieldset class="form-group">
+                                <label>Precio:</label>
+                                <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">$</span>
+                                        </div>
+                                        <input id="price" type="text" formControlName="price" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                </div>        
+                        </fieldset>        
+                    </div>
+                </div>
+                
+
+                <fieldset class="form-group col-md-12">
+                        <label>Descripción:</label>
+                        <textarea id="description"  formControlName="description" class="form-control" rows="2"></textarea>
+                </fieldset>
+                
+                
+            
+                <button *ngIf="id_producto_editar == -1" class="btn btn-primary btn-lg" type="submit">Agregar Producto</button>
+                <button *ngIf="id_producto_editar > -1" class="btn btn-warning btn-lg" type="submit">Guardar Cambios</button>
+            
+            </form>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="productos.length > 0">
+        <div class="page-header">
+            <h1>Productos Ofertados</h1>
+            <hr>
+        </div>
+        <div class="row">
+            
+            <div *ngFor="let product of productos | values" class="col-sm-8">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">{{"$" + product.price}}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{product.name}}</h4>
+                        <p class="card-text">{{product.description}}</p>
+                        <a (click)="editar(product)" href="javascript:void(0)" class="btn btn-light btn-lg" role="button">
+                            <i class="fa fa-pencil"></i>
+                        </a>&nbsp;
+                        <a (click)="eliminar(product)" href="javascript:void(0)" class="btn btn-light btn-lg" role="button">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
