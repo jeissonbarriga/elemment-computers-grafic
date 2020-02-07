@@ -7,6 +7,8 @@ export class TreeNode<T> {
 
     constructor(key: T){
         this.key = key;
+        this.left = null;
+        this.right = null;
     }
 
 }
