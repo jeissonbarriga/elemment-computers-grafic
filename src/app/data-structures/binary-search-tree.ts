@@ -27,6 +27,26 @@ export class BinarySearchTree<T> {
             return root;
         }
     }
-      
+
+    next(N: TreeNode<T>){
+        if(N.right != null)
+            return this.leftDescendant(N.right);
+        else
+            return this.rightAncestor(N);
+    }
+
+    leftDescendant(N: TreeNode<T>){
+        if(N.left = null)
+            return N
+        else
+            return this.leftDescendant(N.left);
+    }
+
+    rightAncestor(N: TreeNode<T>){
+        if(N.key < N.parent.key)
+            return N.parent
+        else
+            return this.rightAncestor(N.parent);
+    }
 
 } 
