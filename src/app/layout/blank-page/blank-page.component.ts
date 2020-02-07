@@ -4,6 +4,7 @@ import { Product } from 'src/app/data-structures/product';
 import { DynamicArray } from 'src/app/data-structures/dynamic-array';
 import { Queue } from 'src/app/data-structures/queue';
 import { Stack } from 'src/app/data-structures/stack';
+import { BinarySearchTree } from 'src/app/data-structures/binary-search-tree';
 
 @Component({
     selector: 'app-blank-page',
@@ -18,12 +19,29 @@ export class BlankPageComponent implements OnInit {
   }
 
 
-  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>) {
+  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>, private bst: BinarySearchTree<T>) {
 
   }
+//BST
+insertBST(quantity: number, initial: number) {
+  let t0 = performance.now();
 
+  for (let i = initial; i < quantity+initial; i++) {
+    let product = new Product(i, "Product" + i);
+    this.bst.insert(product, this.bst.root);
+  }
 
-  //Queue
+  let t1 = performance.now();
+
+  console.log("insert " + quantity + " products took: ");
+  console.warn((t1 - t0) + " milliseconds");
+}
+
+printBST() {
+  this.bst.display();
+}
+
+//Queue
   qEnqueue(quantity: number) {
     let t0 = performance.now();
 
