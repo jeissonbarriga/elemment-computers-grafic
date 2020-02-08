@@ -5,7 +5,6 @@ import { DynamicArray } from 'src/app/data-structures/dynamic-array';
 import { Queue } from 'src/app/data-structures/queue';
 import { Stack } from 'src/app/data-structures/stack';
 import { BinarySearchTree } from 'src/app/data-structures/binary-search-tree';
-import { BinarySearchList } from 'src/app/data-structures/binary-search-list';
 
 @Component({
     selector: 'app-blank-page',
@@ -20,7 +19,7 @@ export class BlankPageComponent implements OnInit {
   }
 
 
-  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>, private bst: BinarySearchTree<Product>, private bslist: BinarySearchList<Product>) {
+  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>, private bst: BinarySearchTree<Product>) {
 
   }
   //BST
@@ -45,26 +44,6 @@ export class BlankPageComponent implements OnInit {
   resetBST() {
     this.bst.resetTree();
     console.log("BST reseted");
-  }
-  
-  //BSList
-  insertBSList(quantity: number, initial: number) {
-    let t0 = performance.now();
-  
-    for (let i = initial; i < quantity+initial; i++) {
-      let product = new Product(i, "Product" + i);
-      this.bslist.insert(product);
-    }
-  
-    let t1 = performance.now();
-  
-    console.log("insert " + quantity + " products took: ");
-    console.warn((t1 - t0) + " milliseconds");
-  }
-
-  printBSList(){
-    console.log("The BsList is gonna be printed!");
-    this.bslist.displayList();
   }
 
 //Queue
