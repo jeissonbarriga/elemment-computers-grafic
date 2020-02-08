@@ -19,7 +19,7 @@ export class BlankPageComponent implements OnInit {
   }
 
 
-  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>, private bst: BinarySearchTree<T>) {
+  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>, private bst: BinarySearchTree<Product>) {
 
   }
 //BST
