@@ -29,7 +29,7 @@ export class Stack<T>{
       return;
     } else{
       this.sup = this.sup.prev;
-      this.sup.next = null;
+      if(this.sup != null) this.sup.next = null;
       this.size--;
     }
   }

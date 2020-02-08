@@ -20,7 +20,6 @@ export class BinarySearchList<T> {
     isProduct(x: T | Product): x is Product {
         return typeof (x as Product).id === "number";
     }
-    // Both calls to 'swim' and 'fly' are now okay.
 
     insert(key: T){
         if(this.isProduct(key)){

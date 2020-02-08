@@ -23,6 +23,30 @@ export class BlankPageComponent implements OnInit {
   constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>, private bst: BinarySearchTree<Product>, private bslist: BinarySearchList<Product>) {
 
   }
+  //BST
+  insertBST(quantity: number, initial: number) {
+    let t0 = performance.now();
+  
+    for (let i = initial; i < quantity+initial; i++) {
+      let product = new Product(i, "Product" + i);
+      this.bst.insert(product);
+    }
+  
+    let t1 = performance.now();
+  
+    console.log("insert " + quantity + " products took: ");
+    console.warn((t1 - t0) + " milliseconds");
+  }
+  
+  printBST() {
+    this.bst.display();
+  }
+  
+  resetBST() {
+    this.bst.resetTree();
+    console.log("BST reseted");
+  }
+  
   //BSList
   insertBSList(quantity: number, initial: number) {
     let t0 = performance.now();
@@ -42,24 +66,6 @@ export class BlankPageComponent implements OnInit {
     console.log("The BsList is gonna be printed!");
     this.bslist.displayList();
   }
-//BST
-insertBST(quantity: number, initial: number) {
-  let t0 = performance.now();
-
-  for (let i = initial; i < quantity+initial; i++) {
-    let product = new Product(i, "Product" + i);
-    this.bst.insert(product, this.bst.root);
-  }
-
-  let t1 = performance.now();
-
-  console.log("insert " + quantity + " products took: ");
-  console.warn((t1 - t0) + " milliseconds");
-}
-
-printBST() {
-  this.bst.display();
-}
 
 //Queue
   qEnqueue(quantity: number) {
