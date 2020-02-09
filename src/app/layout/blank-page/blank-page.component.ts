@@ -5,6 +5,7 @@ import { DynamicArray } from 'src/app/data-structures/dynamic-array';
 import { Queue } from 'src/app/data-structures/queue';
 import { Stack } from 'src/app/data-structures/stack';
 import { BinarySearchTree } from 'src/app/data-structures/binary-search-tree';
+import { TreeNode } from 'src/app/data-structures/tree-node';
 
 @Component({
     selector: 'app-blank-page',
@@ -34,6 +35,50 @@ export class BlankPageComponent implements OnInit {
     let t1 = performance.now();
   
     console.log("insert " + quantity + " products took: ");
+    console.warn((t1 - t0) + " milliseconds");
+  }
+
+  deleteBST(){
+    let t0 = performance.now();
+
+    let itNode1 = this.bst.root;
+    let itNode2 = this.bst.root;
+    while(itNode1 != null){
+      itNode2 = itNode1;
+      itNode1 = this.bst.next(itNode1);
+    }
+    this.bst.delete(itNode2);
+  
+    let t1 = performance.now();
+  
+    console.log("Deleting 1 product took: ");
+    console.warn((t1 - t0) + " milliseconds");
+  }
+
+  rangeSearchBST(initial: number, final: number){
+    let t0 = performance.now();
+
+    let productX = new Product(initial, "Product" + initial);
+    let productY = new Product(final, "Product" + final);
+    let list = this.bst.rangeSearch(productX, productY, this.bst.root);
+  
+    let t1 = performance.now();
+    if(list.size != 0) list.displayList();
+  
+    console.log("range search between products " + initial + " and " + final + " found " + list.size + " products and it took: ");
+    console.warn((t1 - t0) + " milliseconds");
+  }
+
+  nextBST(){
+    let t0 = performance.now();
+
+    let node1 = this.bst.root;
+    let nextNode = this.bst.next(node1);
+  
+    let t1 = performance.now();
+    console.log(nextNode.key);
+  
+    console.log("finding next product took: ");
     console.warn((t1 - t0) + " milliseconds");
   }
   
