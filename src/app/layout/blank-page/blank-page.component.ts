@@ -4,6 +4,8 @@ import { Product } from 'src/app/data-structures/product';
 import { DynamicArray } from 'src/app/data-structures/dynamic-array';
 import { Queue } from 'src/app/data-structures/queue';
 import { Stack } from 'src/app/data-structures/stack';
+import { PriorityQueues } from 'src/app/data-structures/priority-queue';
+import { PQElemment } from 'src/app/data-structures/pq-element';
 
 @Component({
     selector: 'app-blank-page',
@@ -18,10 +20,67 @@ export class BlankPageComponent implements OnInit {
   }
 
 
-  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>) {
+  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, 
+    private queue: Queue<Product>, private pila: Stack<Product>, private pqueue: PriorityQueues<Product>) {
 
   }
+//Priority Queue
+pqInsert(quantity: number){
+  let t0 = performance.now();
+  if(this.pqueue == undefined) this.pqueue = new PriorityQueues<Product>(100000000);
+  let id = this.pqueue.size;
+  for (let i = 0; i < quantity; i++) {
+    let product = new Product(id, "Product" + id);
+    this.pqueue.insert(product,id);
+  }
+  let t1 = performance.now();
 
+  console.log("insert " + quantity + " products took: ");
+  console.warn((t1 - t0) + " milliseconds");
+}
+
+pqExtractMax(){
+  let t0 = performance.now();
+  console.log(this.pqueue.extractMax());
+  let t1 = performance.now();
+
+  console.log("extract max product took: ");
+  console.warn((t1 - t0) + " milliseconds");
+}
+
+pqSiftUp(quantity: number){
+  let t0 = performance.now();
+  this.pqueue.siftUp(quantity);
+  let t1 = performance.now();
+
+  console.log("siftUp " + quantity + " products took: ");
+  console.warn((t1 - t0) + " milliseconds");
+}
+
+pqSiftDown(quantity: number){
+  let t0 = performance.now();
+  this.pqueue.siftDown(quantity);
+  let t1 = performance.now();
+
+  console.log("siftDown " + quantity + " products took: ");
+  console.warn((t1 - t0) + " milliseconds");
+}
+
+pqChangePriority(elemento: number, nprioridad: number){
+  let t0 = performance.now();
+  let product = new Product(elemento, "Product" + elemento);
+  let ele = new PQElemment<Product>(product, elemento) ;
+  this.pqueue.changePriority(nprioridad,ele);
+
+  let t1 = performance.now();
+
+  console.log("Change Priority of a product took: ");
+  console.warn((t1 - t0) + " milliseconds");
+}
+
+pqPrintElements() {
+  this.pqueue.display();
+}
 
   //Queue
   qEnqueue(quantity: number) {
