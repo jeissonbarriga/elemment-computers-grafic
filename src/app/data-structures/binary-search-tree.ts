@@ -38,27 +38,137 @@ export class BinarySearchTree<T> {
         }
     }
 
-    insert(key: T){
+    rotateRight(nodeX: TreeNode<T>){
+        let parent = nodeX.parent;
+        let nodeY = nodeX.left;
+        let nodeB = nodeY.right;
+        nodeY.parent = parent;
+
+        //parent.appropiateChild = nodeY:
+        if(parent != null && this.isProduct(parent.key) && this.isProduct(nodeX.key)){
+            if(parent.key.id > nodeX.key.id)
+                parent.left = nodeY;
+            else if(parent.key.id < nodeX.key.id)
+                parent.right = nodeY;
+        }
+
+        nodeX.parent = nodeY;
+        nodeY.right = nodeX;
+        nodeB.parent = nodeX;
+        nodeX.left = nodeB;
+    }
+
+    rotateLeft(nodeY: TreeNode<T>){
+        let parent = nodeY.parent;
+        let nodeX = nodeY.right;
+        let nodeB = nodeX.left;
+        nodeX.parent = parent;
+
+        //parent.appropiateChild = nodeX:
+        if(parent != null && this.isProduct(parent.key) && this.isProduct(nodeY.key)){
+            if(parent.key.id > nodeY.key.id)
+                parent.left = nodeX;
+            else if(parent.key.id < nodeY.key.id)
+                parent.right = nodeX;
+        }
+
+        nodeY.parent = nodeX;
+        nodeX.left = nodeY;
+        nodeB.parent = nodeY;
+        nodeY.right = nodeB;
+    }
+
+    rebalance(node : TreeNode<T>){
+        let parent = node.parent;
+        if(node.left.height > node.right.height + 1)
+            this.rebalanceRight(node);
+        if(node.right.height > node.left.height + 1)
+            this.rebalanceLeft(node);
+        this.adjustHeight(node);
+        if(parent != null)
+            this.rebalance(parent);
+    }
+
+    adjustHeight(node: TreeNode<T>){
+        node.height = 1 + Math.max(node.left.height, node.right.height);
+    }
+
+    rebalanceRight(nodeN: TreeNode<T>){
+        let nodeM = nodeN.left;
+        if(nodeM.right.height > nodeM.left.height){
+            this.rotateLeft(nodeM);
+            let itNode = nodeM;
+            while(itNode != null){
+                this.adjustHeight(itNode);
+                itNode = itNode.parent;
+            }
+
+        }
+        this.rotateRight(nodeN);
+        let itNode = nodeN;
+        while(itNode != null){
+            this.adjustHeight(itNode);
+            itNode = itNode.parent;
+        }
+    }
+
+    rebalanceLeft(nodeN: TreeNode<T>){
+        let nodeM = nodeN.right;
+        if(nodeM.left.height > nodeM.right.height){
+            this.rotateRight(nodeM);
+            let itNode = nodeM;
+            while(itNode != null){
+                this.adjustHeight(itNode);
+                itNode = itNode.parent;
+            }
+
+        }
+        this.rotateLeft(nodeN);
+        let itNode = nodeN;
+        while(itNode != null){
+            this.adjustHeight(itNode);
+            itNode = itNode.parent;
+        }
+    }
+
+    AVLinsert(key: T){
+       let node = this.insert(key); 
+       if(node != null) this.rebalance(node);
+    }
+
+    insert(key: T): TreeNode<T>{
         let parent = this.find(key, this.root);
-        if(parent == null) this.root = new TreeNode<T>(key);
+        if(parent == null){
+            this.root = new TreeNode<T>(key);
+            return parent;
+        }
         else if(this.isProduct(key) && this.isProduct(parent.key)){
-            if(parent.key.id == key.id)
+            if(parent.key.id == key.id){
                 console.error("Product already inserted!");
+                return null;
+            }
             else if(parent.key.id > key.id){
                 parent.left = new TreeNode<T>(key);
                 parent.left.parent = parent;
+                return parent;
             }
             else if (parent.key.id < key.id){
                 parent.right = new TreeNode<T>(key);
                 parent.right.parent = parent;
+                return parent;
             }
         }
     }
 
-    delete(node: TreeNode<T>){
+    AVLdelete(node: TreeNode<T>){
+        let nodeM = this.delete(node);
+        this.rebalance(nodeM);
+    }
+
+    delete(node: TreeNode<T>): TreeNode<T>{
         if(node == null){
             console.error("Cannot delete node because it is null.");
-            return;
+            return null;
         }
 
         if(node.right == null){
@@ -72,6 +182,7 @@ export class BinarySearchTree<T> {
                     node.parent.left = node.left;
 
             if(node.left != null) node.left.parent = node.parent;
+            return node.parent;
         }else{
             let nodeX = this.next(node);
             let nodeXRight = nodeX.right;
@@ -95,7 +206,9 @@ export class BinarySearchTree<T> {
                 //Promote X.right:
                 if(nodeXRight != null) nodeXRight.parent = nodeXParent;
                 nodeXParent.left = nodeXRight;
+                return nodeXParent;
             }
+            return node.parent;
         }
     }
 
