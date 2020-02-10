@@ -78,6 +78,17 @@ export class HashMap {
         this.rehash();
     }
 
+    polyHash(userName: string) {
+        let hash = 0;
+        for(let i = userName.length - 1; i >= 0; i--) {
+            let charCode = userName.charCodeAt(i);
+            hash = (hash * this.x + charCode) % this.prime;
+        }
+        console.log(userName + " Hashed to " + hash);
+        return hash;
+        
+    }
+
 }
 
 export class ChainNode {
