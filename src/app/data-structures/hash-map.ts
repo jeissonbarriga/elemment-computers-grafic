@@ -89,6 +89,13 @@ export class HashMap {
         
     }
 
+    integerHash(integer: number) {
+        let hash = 0;
+        hash = ((this.a * integer + this.b) % this.prime) % this.m;
+        console.log(integer + " Hashed to " + hash);
+        return hash;
+    }
+
 }
 
 export class ChainNode {
