@@ -96,6 +96,12 @@ export class HashMap {
         return hash;
     }
 
+    fullHash(userName: string) {
+        let hash = this.polyHash(userName);
+        hash = this.integerHash(hash);
+        return hash;
+    }
+
 }
 
 export class ChainNode {
