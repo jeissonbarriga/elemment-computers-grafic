@@ -33,6 +33,18 @@ export class HashMap {
         this.b = Math.floor(Math.random() * this.prime); //entre 0 y p-1
     }
 
+    hasKey(o: string) {
+        let chainNode = this.map[this.fullHash(o)];
+
+        while(chainNode.next != null) {
+            if(chainNode.key == o) {
+                return true;
+            }
+            chainNode = chainNode.next;
+        }
+        return false;
+    }
+
 }
 
 export class ChainNode {
