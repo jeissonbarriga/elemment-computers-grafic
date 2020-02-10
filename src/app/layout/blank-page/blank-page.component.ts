@@ -4,6 +4,7 @@ import { Product } from 'src/app/data-structures/product';
 import { DynamicArray } from 'src/app/data-structures/dynamic-array';
 import { Queue } from 'src/app/data-structures/queue';
 import { Stack } from 'src/app/data-structures/stack';
+import { HashMap } from 'src/app/data-structures/hash-map';
 
 @Component({
     selector: 'app-blank-page',
@@ -18,10 +19,18 @@ export class BlankPageComponent implements OnInit {
   }
 
 
-  constructor(private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>) {
+  constructor(private hashMap: HashMap, private list: DoubleLinkedList<Product>, private dArray: DynamicArray<Product>, private queue: Queue<Product>, private pila: Stack<Product>) {
 
   }
 
+  hashSet() {
+    this.hashMap.set('jeiss');
+    this.hashMap.set('andres');
+    this.hashMap.set('camilo');
+    this.hashMap.set('oscar');
+    this.hashMap.set('julian');
+    this.hashMap.set('manuel');
+  }
 
   //Queue
   qEnqueue(quantity: number) {

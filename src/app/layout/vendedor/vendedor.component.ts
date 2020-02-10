@@ -11,7 +11,8 @@ import { DoubleLinkedList } from 'src/app/data-structures/double-linked-list';
     animations: [routerTransition()]
 })
 export class VendedorComponent implements OnInit {
-    productos: DoubleLinkedList<Product>;
+    //productos: DoubleLinkedList<Product>;
+    productos: Product[];
     productForm;
 
     id_producto_editar: number;
@@ -27,8 +28,8 @@ export class VendedorComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.productos = new DoubleLinkedList<Product>();
-        //this.productos = JSON.parse(localStorage.getItem("productos"));
+        //this.productos = new DoubleLinkedList<Product>();
+        this.productos = JSON.parse(localStorage.getItem("productos"));
         console.log(localStorage.getItem("productos"));
     }
 
@@ -43,23 +44,31 @@ export class VendedorComponent implements OnInit {
     }
 
     eliminar(product: Product) {
-        let current_node = this.productos.head;
+        //let current_node = this.productos.head;
+        let i = 0;
+        let current_node = this.productos[i];
         while(current_node != null){
-            if(current_node.key.id == product.id) {
-                this.productos.remove(current_node);
+            //if(current_node.key.id == product.id) {
+            if(current_node.id == product.id) {
+                //this.productos.remove(current_node);
+                this.productos[i] = null;
                 return;
             }
-            current_node = current_node.next;
+            //current_node = current_node.next;
+            i ++;
+            current_node = this.productos[i];
         }
     }
 
     onSubmit(productData) {
         if(this.id_producto_editar == -1) {
-            let product = new Product(this.productos.size, productData.name);
+            //let product = new Product(this.productos.size, productData.name);
+            let product = new Product(this.productos.length, productData.name);
             product.price = productData.price;
             product.description = productData.description;
 
-            this.productos.pushFront(product);
+            //this.productos.pushFront(product);
+            this.productos.push(product);
         } else {
             let product = this.productos[this.id_producto_editar];
             product.name = productData.name;

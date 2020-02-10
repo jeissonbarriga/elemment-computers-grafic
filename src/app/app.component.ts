@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        let productos: DoubleLinkedList<Product> = new DoubleLinkedList<Product>();
+        //let productos: DoubleLinkedList<Product> = new DoubleLinkedList<Product>();
+        let productos: Product[] = [];
         localStorage.setItem("productos", JSON.stringify(productos));
     }
 }

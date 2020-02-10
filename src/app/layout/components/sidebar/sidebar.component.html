@@ -12,12 +12,17 @@
             <i class="fa fa-fw fa-shopping-cart"></i>&nbsp;
             <span>{{ 'Comprador' }}</span>
         </a>
-        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a [routerLink]="['/analytics']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Analitycs' | translate }}</span>
+        </a>
+        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-desktop"></i>&nbsp;
             <span>{{ 'Banco de Pruebas' | translate }}</span>
         </a>
+        
 
-        <!--
+       <!-- 
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' }}</span>

@@ -1,0 +1,56 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Módulo de Analytics'" [icon]="'fa-desktop'"></app-page-header>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>Herramientas de análisis</h1>
+        <p>
+            Utiliza estas herramientas para ver cómo va tu negocio.
+        </p>
+    </div>
+
+    
+    <div class="page-header">
+        <h1>Clientes Recurrentes</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <form [formGroup]="compraForm" (ngSubmit)="onSubmit(compraForm.value)">
+                <div class="form-row col-md-12">
+                    <div class="col">
+                        <fieldset class="form-group">
+                                <label>Usuario:</label>
+                                <input id="usuario" type="text" formControlName="usuario" class="form-control" placeholder="Usuario">
+                        </fieldset>        
+                    </div>
+                </div>
+                
+                <button class="btn btn-warning btn-lg" type="submit">Simular Compra</button>
+            
+            </form>
+        </div>    
+    </div>
+
+    <br>
+
+    <div class="card mb-3">
+        <div class="card-header">Recurrencia por cantidad de compras</div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Nombre de Usuario</th>
+                    <th>Cantidad de Compras</th>
+                </tr>
+                </thead>
+                <tbody>
+                        <tr *ngFor = "let usuario of usuarios">
+                            <td>{{usuario.key}}</td>
+                            <td>{{usuario.value}}</td>
+                        </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

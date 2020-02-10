@@ -11,6 +11,7 @@ const routes: Routes = [
             { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
             { path: 'vendedor', loadChildren: () => import('./vendedor/vendedor.module').then(m => m.VendedorModule) },
             { path: 'comprador', loadChildren: () => import('./comprador/comprador.module').then(m => m.CompradorModule) },
+            { path: 'analytics', loadChildren: () => import('./analytics/analytics.module').then(m => m.AnalyticsModule) },
             { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
             { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsModule) },
             { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule) },
