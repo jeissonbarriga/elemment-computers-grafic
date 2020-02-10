@@ -45,6 +45,18 @@ export class HashMap {
         return false;
     }
 
+    get(o: string) {
+        let chainNode = this.map[this.fullHash(o)];
+
+        while(chainNode.next != null) {
+            if(chainNode.key == o) {
+                return chainNode.value;
+            }
+            chainNode = chainNode.next;
+        }
+        return null;
+    }
+
 }
 
 export class ChainNode {
