@@ -102,6 +102,27 @@ export class HashMap {
         return hash;
     }
 
+    rehash() {
+        let loadFactor = this.n/this.m;
+        if(loadFactor > 0.9) {
+            console.log("Rehashing... load factor = " + loadFactor);
+            let newMap = [];
+            this.m = this.m * 2;
+            this.n = 0;
+            this.pickRandomHashFunc();
+            for(let i = 0; i < this.map.length; i++) {
+                let chainNode = this.map[i];
+                if(chainNode != null) {
+                    while(chainNode != null) {
+                        this.set(chainNode.key, chainNode.value, newMap, true);
+                        chainNode = chainNode.next;
+                    }
+                }
+            }
+            this.map = newMap;
+        }
+    }
+
 }
 
 export class ChainNode {
