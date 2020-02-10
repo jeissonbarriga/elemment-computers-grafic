@@ -57,6 +57,27 @@ export class HashMap {
         return null;
     }
 
+    set(o: string, value: number = 1, map: ChainNode [] = this.map, rehashing: boolean = false) {
+        let hash = this.fullHash(o);
+        let chainNode = map[hash];
+        if(chainNode == null) {
+            map[hash] = new ChainNode(o, rehashing  ? value : 1);
+        } else {
+            let prevNode = null;
+            while(chainNode != null) {
+                if(chainNode.key == o) {
+                    chainNode.value = rehashing  ? value : chainNode.value + 1;
+                    return;
+                }
+                prevNode = chainNode;
+                chainNode = chainNode.next;
+            }
+            prevNode.next = new ChainNode(o, rehashing  ? value : 1);
+        }
+        this.n ++;
+        this.rehash();
+    }
+
 }
 
 export class ChainNode {
