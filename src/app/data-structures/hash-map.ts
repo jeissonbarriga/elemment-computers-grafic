@@ -27,7 +27,11 @@ export class HashMap {
         this.pickRandomHashFunc();
     }
 
-  
+    pickRandomHashFunc() {
+        this.x = Math.floor(Math.random() * (this.prime - 1)) + 1; // entre 1 y p-1
+        this.a = Math.floor(Math.random() * (this.prime - 1)) + 1; // entre 1 y p-1
+        this.b = Math.floor(Math.random() * this.prime); //entre 0 y p-1
+    }
 
 }
 
